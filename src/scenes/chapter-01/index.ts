@@ -185,7 +185,7 @@ function drawTV(g: Game, r: Ch1Runtime, t: number) {
       c.fillStyle = '#111';
       c.fillRect(0, h * 0.62, w, h * 0.38);
       c.fillStyle = '#ddd';
-      c.font = 'bold 11px sans-serif';
+      c.font = 'bold 9px sans-serif';
       c.textAlign = 'center';
       c.fillText('ТЕХНИЧЕСКИЙ ПЕРЕРЫВ', w / 2, h * 0.78);
       c.font = '10px monospace';

@@ -62,7 +62,7 @@
 .reader .paper h3 { margin: 0 0 12px; font: 600 12px var(--sans); letter-spacing: .25em; text-transform: uppercase; color: #6a6252; }
 .reader .paper p { margin: 0; white-space: pre-line; line-height: 1.55; font-size: 16px; }
 .reader.flyer .paper h3 { font-size: 22px; letter-spacing: .3em; color: #1e1e1e; }
-.reader canvas.photo { width: min(300px, 38vw); height: auto; box-shadow: 0 20px 60px rgba(0,0,0,.7); transform: rotate(1.2deg); background: #111; }
+.reader canvas.photo { height: min(400px, calc(100vh - 70px - var(--sat) - var(--sab))); width: auto; max-width: 40vw; object-fit: contain; box-shadow: 0 20px 60px rgba(0,0,0,.7); transform: rotate(1.2deg); background: #111; }
 .reader .close { position: absolute; top: -6px; right: -6px; width: 44px; height: 44px; display: grid; place-items: center; color: var(--ink-dim); }
 .reader .tap { position: absolute; bottom: calc(10px + var(--sab)); left: 0; right: 0; text-align: center; font-size: 11px; letter-spacing: .2em; color: var(--ink-faint); text-transform: uppercase; }
 @media (orientation: portrait) { .reader .card { flex-direction: column; } .reader canvas.photo { width: min(240px, 60vw); } }
