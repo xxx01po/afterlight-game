@@ -1,0 +1,18 @@
+const s = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+export const IcPause = () => (<svg viewBox="0 0 24 24" {...s}><path d="M9 6v12M15 6v12" /></svg>);
+export const IcPhone = () => (<svg viewBox="0 0 24 24" {...s}><rect x="7" y="2.5" width="10" height="19" rx="2.2" /><path d="M11 18.5h2" /></svg>);
+export const IcTorch = () => (<svg viewBox="0 0 24 24" {...s}><path d="M8 3h8l-1.5 5h-5zM9.5 8h5v12a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1z" /><path d="M12 12v3" /></svg>);
+export const IcHand = () => (<svg viewBox="0 0 24 24" {...s}><path d="M8 12V5.5a1.5 1.5 0 0 1 3 0V11M11 10V4a1.5 1.5 0 0 1 3 0v7M14 10.5V5.5a1.5 1.5 0 0 1 3 0v8.5a6.5 6.5 0 0 1-6.5 6.5h-.3a6 6 0 0 1-4.6-2.2L3.3 15a1.6 1.6 0 0 1 2.4-2.1L8 15" /></svg>);
+export const IcMsg = () => (<svg viewBox="0 0 24 24" {...s}><path d="M4 5h16v11H9l-5 4z" /></svg>);
+export const IcCall = () => (<svg viewBox="0 0 24 24" {...s}><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" /></svg>);
+export const IcPhoto = () => (<svg viewBox="0 0 24 24" {...s}><rect x="3" y="5" width="18" height="14" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M21 16l-5-5-8 8" /></svg>);
+export const IcMic = () => (<svg viewBox="0 0 24 24" {...s}><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg>);
+export const IcNote = () => (<svg viewBox="0 0 24 24" {...s}><path d="M6 3h9l4 4v14H6z" /><path d="M9 11h7M9 15h7M9 7h4" /></svg>);
+export const IcPlay = () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>);
+export const IcStop = () => (<svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="7" width="10" height="10" /></svg>);
+export const IcHang = () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 14c5-5 13-5 18 0l-2 3-4-1.5v-2.6a11 11 0 0 0-6 0v2.6L5 17z" /></svg>);
+export const IcClose = () => (<svg viewBox="0 0 24 24" {...s}><path d="M6 6l12 12M18 6L6 18" /></svg>);
+export const IcRotate = () => (<svg viewBox="0 0 24 24" {...s}><rect x="7" y="2.5" width="10" height="19" rx="2.2" /><path d="M20 8a9 9 0 0 1 0 8" /></svg>);
+export const IcHeadphones = () => (<svg viewBox="0 0 24 24" {...s} width="16" height="16"><path d="M4 15v-3a8 8 0 0 1 16 0v3" /><rect x="3" y="14" width="4" height="6" rx="1.5" /><rect x="17" y="14" width="4" height="6" rx="1.5" /></svg>);
+export const IcSignal = () => (<svg viewBox="0 0 18 12" width="16" height="11" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6" /><rect x="5" y="5.5" width="3" height="6.5" rx=".6" /><rect x="10" y="3" width="3" height="9" rx=".6" opacity=".35" /><rect x="15" y="0" width="3" height="12" rx=".6" opacity=".35" /></svg>);
+export const IcBattery = ({ level = 0.23 }: { level?: number }) => (<svg viewBox="0 0 26 12" width="24" height="11"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5" /><rect x="2" y="2" width={19 * level} height="8" rx="1.6" fill={level < 0.25 ? '#e0a05a' : 'currentColor'} /><rect x="23.5" y="4" width="2" height="4" rx="1" fill="currentColor" opacity=".5" /></svg>);
