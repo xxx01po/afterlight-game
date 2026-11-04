@@ -1,10 +1,28 @@
-# Голоса персонажей. Финальные голоса фиксируются здесь после кастинга (тест T-01, шаг 6).
+# Голоса персонажей. Подробный рецепт: voice/README.md
 foma:
-  status: casting
-  scratch: {engine: edge-tts, voice: ru-RU-DmitryNeural, rate: "-8%", pitch: "-6Hz", processing: mask}
-  candidates:
-    - {engine: elevenlabs, method: voice_design, note: "молодой мужской 20–30, тёплый, ироничный; аудиотеги [whispers] [scared]"}
-    - {engine: fish-speech, method: clone, note: "клон с 15–30 с чистой записи (нужны права на голос)"}
-    - {engine: live_actor, note: "сильнейший вариант: липсинк не нужен — лицо под маской"}
+  voice_id: FOMA_VOICE_V1
+  status: candidate_selected   # ждёт утверждения автором на слух
+  master: voice/master/foma_voice_master.wav
+  master_sha256: dbe081a8e0cffaf7099926cf587bbdd0ebe4dea4fdff987dc623e7f9d6e23929
+  design:
+    model: Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign@5ecdb67327fd37bb2e042aab12ff7391903235d3
+    seed: 1234
+    brief_key: voice_brief_v3_en
+    post: "rubberband=pitch=0.8909:formant=preserved:pitchq=quality"
+  tts:
+    engine: chatterbox-tts==0.1.7 (multilingual, t3_mtl23ls_v2)
+    language_id: ru
+    temperature: 0.8
+    default_seed: 1234
+    emotion_presets:   # exaggeration, cfg_weight
+      calm: [0.45, 0.5]
+      joke: [0.6, 0.45]
+      fear: [0.75, 0.38]
+      whisper: [0.55, 0.3]
+      panic: [1.0, 0.3]
+      eerie: [0.3, 0.3]
+  post_fx: mask   # tools/mix_t01.py FX["mask"]
+  licenses: "Qwen3-TTS Apache-2.0; Chatterbox MIT; Perth watermark embedded"
+
 dark_double:
-  note: "голос из темноты = голос Фомы + обработка dark_double (tools/scratch_voice.py)"
+  note: "голос из темноты = голос Фомы (eerie) + FX dark_double: сухой + копия на −3 полутона, глухая, тихая"

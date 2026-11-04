@@ -23,6 +23,8 @@ def main():
     ap.add_argument("--ref", required=True)
     ap.add_argument("--seed", type=int, default=1234)
     ap.add_argument("--temperature", type=float, default=0.8)
+    ap.add_argument("--only", help="id сегментов через запятую")
+    ap.add_argument("--suffix", default="", help="суффикс имени файла (для дублей)")
     a = ap.parse_args()
     torch.set_num_threads(4)
     cfg = yaml.safe_load(open(a.script, encoding="utf-8"))
@@ -31,12 +33,13 @@ def main():
     import os
     d = os.environ.get("CHATTERBOX_DIR")
     m = ChatterboxMultilingualTTS.from_local(d, device="cpu") if d else ChatterboxMultilingualTTS.from_pretrained(device="cpu")
-    for s in cfg["segments"]:
+    segs = [s for s in cfg["segments"] if not a.only or s["id"] in a.only.split(",")]
+    for s in segs:
         random.seed(a.seed); np.random.seed(a.seed); torch.manual_seed(a.seed)
         t = time.time()
         wav = m.generate(s["text"], language_id="ru", audio_prompt_path=a.ref,
                          exaggeration=s["cb_exaggeration"], cfg_weight=s["cb_cfg"], temperature=a.temperature)
-        sf.write(out / f"{s['id']}.wav", wav.squeeze(0).numpy(), m.sr)
+        sf.write(out / f"{s['id']}{a.suffix}.wav", wav.squeeze(0).numpy(), m.sr)
         print(f"{s['id']} {wav.shape[-1] / m.sr:.2f}s gen {time.time() - t:.0f}s", flush=True)
 
 

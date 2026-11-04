@@ -5,3 +5,6 @@ production/*/06_export/
 *.wav
 *.safetensors
 __pycache__/
+
+# голосовой мастер — исключение из правила "*.wav вне git"
+!voice/master/*.wav
