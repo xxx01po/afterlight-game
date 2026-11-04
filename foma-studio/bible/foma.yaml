@@ -7,6 +7,7 @@ version: 1.0
 status: APPROVED_REFERENCE   # лист получен 04.11.2026
 change_policy: любые изменения внешности или манеры отрисовки — только после согласования с автором; эталон и дизайна, и стиля — лист foma_sheet_v1.png
 previs_dummy: 3D-манекен из previz/ — НЕ эталон визуального качества; используется только для композиции, позы, камеры и тайминга
+reference_pack: reference/pack_v1/   # FomaRef_v1 — 4 изображения, порядок важен (см. README)
 reference_images:
   sheet: reference/foma_sheet_v1.png
   turnaround: reference/foma_turnaround.png        # перед / 3/4 / профиль / спина, рост ≈175 см
