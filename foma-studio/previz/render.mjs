@@ -14,7 +14,7 @@ const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--ena
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 page.on('console', m => { if (m.type() === 'error') console.error('PAGE', m.text()); });
 page.on('pageerror', e => console.error('PAGEERR', e.message));
-await page.goto(`http://localhost:${port}/index.html`);
+await page.goto(`http://localhost:${port}/index.html${process.env.NOBARS ? '?bars=0' : ''}`);
 await page.waitForFunction('window.ready === true', null, { timeout: 60000 });
 const frame = async (t) => { await page.evaluate(t => window.renderAt(t), t); const d = await page.evaluate(() => window.grab(0.92)); return Buffer.from(d.split(',')[1], 'base64'); };
 if (process.argv[2] === '--stills') {

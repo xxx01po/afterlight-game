@@ -226,9 +226,9 @@ export function build(canvas) {
   composer.addPass(new RenderPass(scene, camera));
   const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.6, 0.35, 0.92); composer.addPass(bloom);
   const grade = new ShaderPass({
-    uniforms: { tDiffuse: { value: null }, uTime: { value: 0 }, uFade: { value: 1 } },
+    uniforms: { tDiffuse: { value: null }, uTime: { value: 0 }, uFade: { value: 1 }, uBars: { value: 1 } },
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }',
-    fragmentShader: `uniform sampler2D tDiffuse; uniform float uTime; uniform float uFade; varying vec2 vUv;
+    fragmentShader: `uniform sampler2D tDiffuse; uniform float uTime; uniform float uFade; uniform float uBars; varying vec2 vUv;
       float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233)) + uTime*37.0)*43758.5453); }
       void main(){
         vec3 c = texture2D(tDiffuse, vUv).rgb;
@@ -238,7 +238,7 @@ export function build(canvas) {
         c += vec3(0.008,0.011,0.016);                               // приподнять чёрный в синеву
         vec2 d = vUv-0.5; c *= 1.0 - dot(d,d)*1.25;                 // виньетка
         c += (h(vUv*vec2(1280.,720.))-0.5)*0.02;                    // зерно
-        float bar = 0.128; if (vUv.y < bar || vUv.y > 1.0-bar) c = vec3(0.0); // 2.39:1
+        float bar = 0.128; if (uBars > 0.5 && (vUv.y < bar || vUv.y > 1.0-bar)) c = vec3(0.0); // 2.39:1 (отключается для направляющих кадров)
         gl_FragColor = vec4(c*uFade, 1.0);
       }`,
   });

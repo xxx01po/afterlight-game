@@ -6,6 +6,7 @@
 <script type="module">
 import { build, renderAt } from './scene.js';
 const S = build(document.getElementById('c'));
+if (new URLSearchParams(location.search).get('bars') === '0') S.grade.uniforms.uBars.value = 0;
 window.renderAt = (t) => { renderAt(S, t); return true; };
 window.grab = (q) => document.getElementById('c').toDataURL('image/jpeg', q ?? 0.92);
 window.ready = true;
