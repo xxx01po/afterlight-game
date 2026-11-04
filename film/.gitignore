@@ -1,0 +1,6 @@
+out/prev/
+out/seg_*
+out/log_*
+out/*.wav
+out/sheet*
+out/cues.json
