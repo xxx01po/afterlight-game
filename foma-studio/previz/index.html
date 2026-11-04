@@ -1,0 +1,12 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Foma previz</title>
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body><canvas id="c" width="1280" height="720"></canvas>
+<script type="module">
+import { build, renderAt } from './scene.js';
+const S = build(document.getElementById('c'));
+window.renderAt = (t) => { renderAt(S, t); return true; };
+window.grab = (q) => document.getElementById('c').toDataURL('image/jpeg', q ?? 0.92);
+window.ready = true;
+</script></body></html>

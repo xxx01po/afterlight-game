@@ -1,0 +1,53 @@
+# Единый текст голосовых проб Фомы. Одинаков для всех движков.
+# instruct_en — эмоциональная режиссура для движков, которые её понимают (Qwen3-TTS VoiceDesign).
+# cb_* — параметры Chatterbox для того же сегмента (exaggeration = сила эмоции, cfg = темп/стабильность).
+
+voice_brief_en: >-
+  Male voice of a young Russian guy, 18 to 22 years old. Medium-low pitch with a light, natural husky rasp.
+  Casual, lively, conversational street-smart delivery; charismatic and a little cocky.
+  Standard Russian pronunciation with no regional accent. Close, intimate microphone, dry room.
+
+# v2 — уточнённое описание: первый эталон (v1, seed 1234) получился выше нужного (F0 ≈ 193 Гц)
+voice_brief_v2_en: >-
+  A young Russian man about 20 years old with a low, slightly husky baritone voice, around 110 hertz,
+  with a natural gravelly rasp at the ends of phrases. He talks casually and confidently, like a cocky
+  but likeable guy from the street. Relaxed chest voice, never high or nasal. Standard Moscow Russian
+  pronunciation, no regional accent. Close microphone, dry room.
+
+segments:
+  - id: S1_calm
+    emotion: обычная речь
+    text: "Так. Ну и где я на этот раз? Квартира как квартира. Пусто, холодно и пахнет сыростью."
+    instruct_en: "He speaks calmly and casually, a bit tired, unhurried, slightly wry."
+    cb_exaggeration: 0.45
+    cb_cfg: 0.5
+  - id: S2_joke
+    emotion: шутка
+    text: "Если тут живёт призрак, у него явно проблемы со вкусом. От этих обоев даже я бы сбежал."
+    instruct_en: "He jokes with a cocky, amused tone and a quiet smirk in the voice, playful timing."
+    cb_exaggeration: 0.6
+    cb_cfg: 0.5
+  - id: S3_fear
+    emotion: испуг
+    text: "Стоп. Ты это слышал? Это что сейчас было?!"
+    instruct_en: "He is suddenly startled and scared, voice tightens and rises, quick nervous breaths between phrases."
+    cb_exaggeration: 0.8
+    cb_cfg: 0.4
+  - id: S4_whisper
+    emotion: шёпот
+    text: "Тихо... Тихо. Оно за дверью. Я слышу, как оно дышит."
+    instruct_en: "He whispers very quietly and breathily, terrified, barely voiced, slow, close to the microphone."
+    cb_exaggeration: 0.5
+    cb_cfg: 0.3
+  - id: S5_panic
+    emotion: паника
+    text: "Нет-нет-нет, она открывается! Бежим! Бежим, бежим, бежим!"
+    instruct_en: "He panics and shouts, fast and breathless, voice cracking with fear, rushing the words."
+    cb_exaggeration: 1.0
+    cb_cfg: 0.3
+
+# Эталонная фраза для «закрепления» голоса (нейтрально-живая, все основные звуки русского).
+reference:
+  id: REF
+  text: "Слушай, я понятия не имею, как я тут оказался. Но раз уж я здесь — давай разберёмся, что к чему."
+  instruct_en: "He speaks in a relaxed, confident, slightly cocky conversational tone, natural pauses."
