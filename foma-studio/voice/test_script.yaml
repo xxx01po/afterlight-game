@@ -46,6 +46,10 @@ segments:
     cb_exaggeration: 1.0
     cb_cfg: 0.3
 
+# v3 — короткое описание: длинные описания v1/v2 давали F0 190–210 Гц (выше цели 100–140)
+voice_brief_v3_en: >-
+  Deep male voice. A 20-year-old Russian guy speaking in a low chest register, slightly hoarse, relaxed and confident.
+
 # Эталонная фраза для «закрепления» голоса (нейтрально-живая, все основные звуки русского).
 reference:
   id: REF

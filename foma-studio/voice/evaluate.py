@@ -63,10 +63,13 @@ def main():
     from chatterbox.models.voice_encoder import VoiceEncoder
     asr = WhisperModel("small", device="cpu", compute_type="int8")
     ve = VoiceEncoder()
-    from huggingface_hub import hf_hub_download
+    import os
     import torch
-    from safetensors.torch import load_file
-    ve.load_state_dict(load_file(hf_hub_download("ResembleAI/chatterbox", "ve.safetensors")))
+    ve_path = Path(os.environ.get("CHATTERBOX_DIR", ".")) / "ve.pt"
+    if not ve_path.exists():
+        from huggingface_hub import hf_hub_download
+        ve_path = hf_hub_download("ResembleAI/chatterbox", "ve.pt")
+    ve.load_state_dict(torch.load(ve_path, map_location="cpu"))
     ve.eval()
     emb = lambda y: ve.embeds_from_wavs([y], 16000, as_spk=True)
     ref16, _ = librosa.load(a.ref, sr=16000)

@@ -28,7 +28,9 @@ def main():
     cfg = yaml.safe_load(open(a.script, encoding="utf-8"))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    m = ChatterboxMultilingualTTS.from_pretrained(device="cpu")
+    import os
+    d = os.environ.get("CHATTERBOX_DIR")
+    m = ChatterboxMultilingualTTS.from_local(d, device="cpu") if d else ChatterboxMultilingualTTS.from_pretrained(device="cpu")
     for s in cfg["segments"]:
         random.seed(a.seed); np.random.seed(a.seed); torch.manual_seed(a.seed)
         t = time.time()

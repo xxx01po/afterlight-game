@@ -88,26 +88,34 @@ const doorTex = canvasTex(256, 512, (g, w, h) => {
   g.strokeStyle = 'rgba(60,60,60,0.6)'; g.lineWidth = 6; g.strokeRect(30, 30, w - 60, h * 0.42); g.strokeRect(30, h * 0.52, w - 60, h * 0.42);
   for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(70,55,40,${0.3 + r() * 0.5})`; g.beginPath(); g.ellipse(r() * w, r() * h, 2 + r() * 12, 1 + r() * 6, r() * 3, 0, 7); g.fill(); }
 });
-// Маска: асимметрия. ПЛЕЙСХОЛДЕР: чёрная половина — правая сторона Фомы (у зрителя слева при анфасе).
+// Маска по утверждённому листу (bible/reference/foma_mask_closeup.png):
+// пепельно-серая, чёрный сужающийся клин сверху вниз чуть правее центра (для зрителя), трещины, тёмная окантовка прорезей.
+// UV — планарная проекция маски: u=0 — левый край для зрителя, v=1 — лоб.
 const maskTex = canvasTex(512, 512, (g, w, h) => {
-  g.fillStyle = '#e9e9e4'; g.fillRect(0, 0, w, h);
-  g.fillStyle = '#0b0b0c'; g.beginPath(); g.moveTo(0, 0); g.lineTo(w * 0.47, 0);
-  const pts = [[0.5, 0.12], [0.44, 0.27], [0.53, 0.4], [0.47, 0.55], [0.56, 0.7], [0.5, 0.86], [0.55, 1]];
-  for (const [x, y] of pts) g.lineTo(x * w, y * h);
-  g.lineTo(0, h); g.closePath(); g.fill();
-  const crack = (pts, col, lw) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); g.moveTo(pts[0][0] * w, pts[0][1] * h); for (const p of pts.slice(1)) g.lineTo(p[0] * w, p[1] * h); g.stroke(); };
-  crack([[0.62, 0.05], [0.66, 0.16], [0.63, 0.24], [0.7, 0.33], [0.68, 0.38]], '#3a3a3a', 3);
-  crack([[0.66, 0.16], [0.75, 0.2], [0.8, 0.18]], '#3a3a3a', 2);
-  crack([[0.58, 0.95], [0.62, 0.84], [0.6, 0.76], [0.66, 0.7]], '#3a3a3a', 2.5);
-  crack([[0.2, 0.08], [0.24, 0.2], [0.2, 0.28], [0.27, 0.36]], '#6d6d6d', 2.5);
-  crack([[0.3, 0.8], [0.26, 0.9], [0.31, 0.97]], '#6d6d6d', 2);
+  const r = rng(9);
+  g.fillStyle = '#b8b6b1'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 260; i++) { g.fillStyle = `rgba(${r() < 0.5 ? '60,58,55' : '220,218,212'},${0.04 + r() * 0.08})`; g.beginPath(); g.ellipse(r() * w, r() * h, 2 + r() * 14, 1 + r() * 8, r() * 3, 0, 7); g.fill(); }
+  // клин
+  g.fillStyle = '#0a0a0b'; g.beginPath();
+  g.moveTo(0.53 * w, 0); g.lineTo(0.69 * w, 0); g.lineTo(0.64 * w, 0.22 * h); g.lineTo(0.6 * w, 0.42 * h); g.lineTo(0.565 * w, 0.62 * h); g.lineTo(0.535 * w, 0.86 * h);
+  g.lineTo(0.52 * w, 0.62 * h); g.lineTo(0.515 * w, 0.4 * h); g.lineTo(0.52 * w, 0.2 * h); g.closePath(); g.fill();
+  // окантовка прорезей глаз (миндаль, внешние уголки вверх)
+  const almond = (cx, cy, s) => { g.beginPath(); g.moveTo(cx - s * 58, cy + 16); g.quadraticCurveTo(cx - s * 2, cy - 44, cx + s * 60, cy - 22); g.quadraticCurveTo(cx + s * 4, cy + 40, cx - s * 58, cy + 16); g.closePath(); };
+  g.fillStyle = '#1b1b1c'; almond(0.31 * w, 0.385 * h, -1); g.fill(); almond(0.69 * w, 0.385 * h, 1); g.fill();
+  const crack = (pts, col, lw) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); g.moveTo(pts[0][0] * w, pts[0][1] * h); for (const q of pts.slice(1)) g.lineTo(q[0] * w, q[1] * h); g.stroke(); };
+  crack([[0.27, 0.55], [0.3, 0.63], [0.26, 0.7], [0.31, 0.79], [0.29, 0.86]], '#2a2a2a', 3);
+  crack([[0.3, 0.63], [0.37, 0.66]], '#2a2a2a', 2);
+  crack([[0.18, 0.62], [0.22, 0.68]], '#2a2a2a', 2);
+  crack([[0.62, 0.8], [0.66, 0.88], [0.63, 0.95]], '#2a2a2a', 2.5);
+  crack([[0.7, 0.04], [0.74, 0.12], [0.72, 0.17]], '#3a3a3a', 2);
+  crack([[0.42, 0.06], [0.4, 0.14]], '#3a3a3a', 1.5);
 });
 
 // ---------- материалы ----------
 const std = (color, rough = 0.9, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: 0, ...extra });
 const M = {
-  hoodie: std(0x2b2e34, 0.95), pants: std(0x33373e, 0.92), shoe: std(0x1b1c1f, 0.6), sole: std(0x34363b, 0.7),
-  glove: std(0x2a2c30, 0.7), mask: std(0xffffff, 0.45, { map: maskTex }), maskBack: std(0x0c0c0d, 0.6),
+  hoodie: std(0x2b2e34, 0.95), pants: std(0x33373e, 0.92), shoe: std(0xb3b0a8, 0.75), sole: std(0xd2cfc6, 0.8), shoeAccent: std(0x2a2b2e, 0.7), hair: std(0x0d0d0f, 0.8), pack: std(0x18191c, 0.85), patch: std(0x5a5d63, 0.9),
+  glove: std(0x9a8172, 0.6), mask: std(0xffffff, 0.75, { map: maskTex }), maskBack: std(0x0c0c0d, 0.6),
   eye: new THREE.MeshBasicMaterial({ color: new THREE.Color(PAL.glow).multiplyScalar(1.8), toneMapped: false }),
   socket: new THREE.MeshBasicMaterial({ color: 0x050506 }),
   metal: std(0x2c2f34, 0.4, { metalness: 0.7 }), lens: new THREE.MeshBasicMaterial({ color: 0x7d8796 }),
@@ -251,23 +259,46 @@ function buildFoma() {
   const hood = add(torso, new THREE.LatheGeometry(prof, 32), M.hoodie); hood.scale.set(1.12, 1, 0.74);
   add(torso, new RoundedBoxGeometry(0.34, 0.16, 0.04, 2, 0.02), M.hoodie, [0, 0.0, 0.225]); // карман-кенгуру
   for (const s of [-1, 1]) { const st = add(torso, new THREE.CylinderGeometry(0.006, 0.006, 0.22, 6), M.sole, [s * 0.06, 0.38, 0.2]); st.rotation.x = 0.12; }
+  // рюкзак + лямки + нагрудная стропа, крест на груди
+  add(torso, new RoundedBoxGeometry(0.36, 0.44, 0.17, 3, 0.05), M.pack, [0, 0.24, -0.31]);
+  add(torso, new RoundedBoxGeometry(0.3, 0.16, 0.06, 2, 0.02), M.pack, [0, 0.1, -0.41]);
+  for (const s2 of [-1, 1]) { const st = add(torso, new THREE.BoxGeometry(0.045, 0.42, 0.02), M.pack, [s2 * 0.14, 0.32, 0.225]); st.rotation.x = -0.12; }
+  add(torso, new THREE.BoxGeometry(0.28, 0.03, 0.02), M.pack, [0, 0.33, 0.245]);
+  add(torso, new THREE.BoxGeometry(0.04, 0.035, 0.025), M.patch, [0, 0.33, 0.255]);
+  add(torso, new THREE.BoxGeometry(0.012, 0.09, 0.006), M.patch, [-0.07, 0.24, 0.236]);
+  add(torso, new THREE.BoxGeometry(0.05, 0.012, 0.006), M.patch, [-0.07, 0.26, 0.236]);
   // голова
   const neck = G(); neck.position.y = 0.52; torso.add(neck);
   const head = G(); head.position.y = 0.17; neck.add(head);
   // маска: передняя полусфера с планарной UV-проекцией
-  const mg = new THREE.SphereGeometry(1, 48, 32, 0, Math.PI, 0.12 * Math.PI, 0.78 * Math.PI);
+  const mg = new THREE.SphereGeometry(1, 48, 32, 0, Math.PI, 0.08 * Math.PI, 0.86 * Math.PI);
   const uv = mg.attributes.uv, p = mg.attributes.position;
-  for (let i = 0; i < uv.count; i++) uv.setXY(i, (p.getX(i) + 1) / 2, (p.getY(i) + 1) / 2);
-  const mask = add(head, mg, M.mask); mask.scale.set(0.145, 0.19, 0.13);
+  for (let i = 0; i < p.count; i++) { // щит: книзу сужается и вытягивается в остриё
+    let x = p.getX(i), y = p.getY(i), z = p.getZ(i);
+    if (y < 0) { x *= 1 + y * 0.62; y *= 1.22; z *= 1 + y * 0.25; }
+    p.setXYZ(i, x, y, z);
+  }
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, (p.getX(i) + 1) / 2, (p.getY(i) + 1.22) / 2.22);
+  mg.computeVertexNormals();
+  const mask = add(head, mg, M.mask); mask.scale.set(0.135, 0.175, 0.13); mask.position.y = 0.0;
   const back = add(head, new THREE.SphereGeometry(1, 32, 16, Math.PI, Math.PI), M.maskBack); back.scale.set(0.14, 0.185, 0.12);
   // капюшон
   const hoodHead = add(head, new THREE.SphereGeometry(1, 40, 24, Math.PI * 0.82, Math.PI * 1.36), M.hoodie, [0, 0.02, -0.02]); hoodHead.scale.set(0.205, 0.245, 0.2);
   const rim = add(head, new THREE.TorusGeometry(1, 0.17, 10, 40), M.hoodie, [0, 0.01, 0.085]); rim.scale.set(0.175, 0.225, 0.2);
+  // пряди волос из-под капюшона
+  const hr = rng(4);
+  for (let i = 0; i < 9; i++) {
+    const x = -0.11 + i * 0.0275 + (hr() - 0.5) * 0.01, len = 0.035 + hr() * 0.04;
+    const c = add(head, new THREE.ConeGeometry(0.011 + hr() * 0.005, len, 4), M.hair, [x, 0.165 - Math.abs(x) * 0.3, 0.07 + (0.11 - Math.abs(x)) * 0.15]);
+    c.rotation.set(Math.PI - 0.5 - hr() * 0.3, 0, (x * 3) + (hr() - 0.5) * 0.5);
+  }
   // глаза: светящиеся (ПЛЕЙСХОЛДЕР формы — миндаль), на поверхности маски
   const eyes = [];
   for (const s of [-1, 1]) {
-    const eg = G(); eg.position.set(s * 0.055, 0.025, 0.122); eg.rotation.y = s * 0.38; head.add(eg);
-    const e = add(eg, new THREE.CircleGeometry(0.022, 24), M.eye, [0, 0, 0.002]); e.castShadow = false; e.scale.set(1.15, 0.7, 1);
+    const eg = G(); eg.position.set(s * 0.051, 0.027, 0.12); eg.rotation.y = s * 0.4; head.add(eg);
+    const sh = new THREE.Shape(); // x>0 — наружу
+    sh.moveTo(-1, -0.35); sh.quadraticCurveTo(-0.1, 0.55, 1, 0.42); sh.quadraticCurveTo(0.1, -0.55, -1, -0.35);
+    const e = add(eg, new THREE.ShapeGeometry(sh, 16), M.eye, [0, 0, 0.003]); e.castShadow = false; e.scale.set(s * 0.025, 0.025, 1);
     eyes.push(e);
   }
   const eyeLight = new THREE.PointLight(0xeaf2ff, 0.06, 0.5, 2); eyeLight.position.set(0, 0.03, 0.2); head.add(eyeLight);
@@ -289,11 +320,13 @@ function buildFoma() {
     const hip = G(); hip.position.set(s * 0.13, 0, 0); hips.add(hip);
     add(hip, new THREE.CylinderGeometry(0.14, 0.155, 0.46, 16), M.pants, [0, -0.23, 0]);
     add(hip, new RoundedBoxGeometry(0.05, 0.15, 0.13, 2, 0.015), M.pants, [s * 0.16, -0.3, 0]); // карго-карман
+    add(hip, new THREE.BoxGeometry(0.012, 0.22, 0.03), M.pack, [s * 0.18, -0.42, 0.03]);
     const knee = G(); knee.position.y = -0.46; hip.add(knee);
     add(knee, new THREE.CylinderGeometry(0.155, 0.18, 0.42, 16), M.pants, [0, -0.2, 0]);
     const ankle = G(); ankle.position.y = -0.41; knee.add(ankle);
     add(ankle, new RoundedBoxGeometry(0.15, 0.09, 0.31, 3, 0.035), M.shoe, [0, -0.0, 0.05]);
-    add(ankle, new RoundedBoxGeometry(0.16, 0.045, 0.33, 2, 0.015), M.sole, [0, -0.045, 0.05]);
+    add(ankle, new RoundedBoxGeometry(0.16, 0.05, 0.33, 2, 0.015), M.sole, [0, -0.05, 0.05]);
+    add(ankle, new THREE.BoxGeometry(0.152, 0.025, 0.12), M.shoeAccent, [0, 0.0, 0.0]);
     return { hip, knee, ankle };
   };
   const LL = leg(1), RL = leg(-1);
@@ -341,7 +374,7 @@ export function renderAt(S, t) {
   const blink = (tt) => (Math.abs(t - tt) < 0.09 ? 0.1 : 1);
   const ey = squint * Math.min(blink(9.0), blink(19.4), blink(25.0));
   const dim = key(t, [[29, 1], [31, 0.55], [38.5, 0.55], [39.3, 1.1], [41, 0.9]]);
-  F.eyes.forEach(e => e.scale.y = 0.7 * ey);
+  F.eyes.forEach(e => e.scale.y = 0.025 * ey);
   M.eye.color.copy(new THREE.Color(PAL.glow).multiplyScalar(1.8 * dim));
   F.eyeLight.intensity = 0.06 * dim;
 

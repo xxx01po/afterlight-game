@@ -1,69 +1,87 @@
 # ПАСПОРТ ПЕРСОНАЖА — ФОМА
 # Единственный источник правды. Любое изменение — только по согласованию с автором канала.
-# Поля с пометкой TBD нужно заполнить по утверждённому дизайну (изображения в bible/reference/).
+# ЭТАЛОН: bible/reference/foma_sheet_v1.png (утверждённый лист персонажа). При расхождении текста и картинки — прав лист.
 
 id: foma
-version: 0.1-draft
-status: AWAITING_APPROVED_REFERENCE   # → APPROVED после загрузки утверждённого дизайна
+version: 1.0
+status: APPROVED_REFERENCE   # лист получен 04.11.2026
+reference_images:
+  sheet: reference/foma_sheet_v1.png
+  turnaround: reference/foma_turnaround.png        # перед / 3/4 / профиль / спина, рост ≈175 см
+  mask: reference/foma_mask_closeup.png            # маска анфас + профиль
+  emotions: reference/foma_emotions.png            # 5 эмоциональных состояний
+  details: reference/foma_details.png              # крест на худи, стропы рюкзака, пряжка, кроссовок
+  outfit: reference/foma_outfit.png                # худи, карго, рюкзак, кроссовки отдельно
+  hero: reference/foma_hero.png                    # ключевой арт (поза сидя, лес, луна, дом с красными окнами)
+  palette: reference/foma_palette.png
+  atmosphere: reference/foma_atmosphere.png
+  logo: reference/foma_logo.png
 
 identity:
   name: Фома
-  species: необычное мультяшное существо с человеческими повадками
   backstory: НЕ ОПРЕДЕЛЕНА — запрещено придумывать прошлое, происхождение маски и причины появления в местах без согласования
-  knows_about_self: ничего (не помнит прошлое, не знает происхождения маски)
+  premise: не помнит прошлого, не знает, откуда у него маска и почему постоянно оказывается в странных и жутких местах; зритель узнаёт мир вместе с ним
+  key_traits:            # с листа
+    - обычный в реакциях
+    - живой и эмоциональный
+    - любит докапываться до истины
+    - часто попадает в опасные ситуации
+    - не знает, кто он на самом деле
 
 personality:
   - говорит естественным живым языком, без литературщины
-  - шутит, особенно когда страшно (защитная реакция)
-  - боится, удивляется, злится
-  - ошибается, иногда действует импульсивно
-  - не супергерой: убегает, прячется, паникует, но не трус до конца
+  - шутит, особенно когда страшно (защитная реакция), немного дерзкий, харизматичный
+  - боится, удивляется, злится, паникует
+  - ошибается, иногда действует импульсивно; не супергерой
 
 visual:
-  height: средний рост
-  proportions: TBD (соотношение головы к телу по утверждённому дизайну, напр. 1:5)
-  silhouette: широкий низ (очень широкие карго + массивные кроссовки), объёмный верх (оверсайз-худи), голова-маска — читаемый силуэт «треугольник вниз»
+  height_cm: 175
+  build: худощавый молодой парень, фигура полностью скрыта оверсайз-одеждой
+  silhouette: капюшон + узкая заострённая маска сверху, объёмное худи, очень широкие карго до пола, светлые массивные кроссовки внизу (светлое пятно — якорь силуэта в темноте)
+  head:
+    hood: чёрный капюшон ВСЕГДА надет (на всех кадрах листа)
+    hair: чёрные растрёпанные острые пряди выбиваются из-под капюшона на лоб и виски
   mask:
     coverage: полностью закрывает лицо
-    colors: чёрный и белый, асимметрично
-    asymmetry_rule: TBD — какая половина чёрная. Описывать ОТНОСИТЕЛЬНО ФОМЫ ("on his right side") + для зрителя при анфасе
-    shape: TBD (овал / вытянутая / плоская)
-    cracks: TBD (количество, расположение — по карте трещин foma_mask_sheet.png)
-    surface: TBD (матовая керамика? лакированная? потёртая?)
+    material: матовая, светло-серая/пепельная (не чисто белая), потёртая, с трещинами
+    shape: вытянутый «щит» — широкий лоб, сужается к ЗАОСТРЁННОМУ подбородку; в профиль — изогнутая пластина
+    stripe: один чёрный сужающийся клин — начинается широким сверху у лба чуть правее центра (для зрителя при анфасе, т.е. на ЛЕВОЙ стороне Фомы), идёт вниз между глазами и заостряется к низу маски
+    cracks: тонкие тёмные трещины — на щеке слева для зрителя (правая щека Фомы) и у нижнего края
+    eye_holes: миндалевидные прорези с острыми внешними уголками, слегка «злой» наклон
   eyes:
     color: белое свечение
-    glow_hex: "#F4F8FF"   # почти белый, едва холодный; НЕ голубой, НЕ жёлтый
-    shape: TBD (круглые / миндалевидные / разной формы)
-    emotion_language: TBD (меняют ли глаза форму при эмоциях — предлагаю: только размер и яркость)
+    glow_hex: "#F4F8FF"
+    shape: миндалевидные, внешние уголки вверх
+    emotion_language: форма МЕНЯЕТСЯ — сужаются (злость, подозрение), округляются (испуг), прищур-дуга (усмешка); на крупном плане маски на листе светится один глаз — уточнить у автора, это приём или случайность
   clothing:
-    hoodie: чёрное оверсайз-худи, без логотипов и надписей; капюшон — TBD (надет/снят по умолчанию)
-    pants: очень широкие штаны карго, тёмные (цвет TBD — графит/чёрный)
-    shoes: массивные тёмные кроссовки, толстая подошва
-  hands: TBD (человеческие 5 пальцев / перчатки / мультяшные)
+    hoodie: чёрное оверсайз-худи, карман-кенгуру, шнурки капюшона, нашитый/вышитый крест на груди (деталь листа), потёртости
+    pants: очень широкие чёрные штаны карго до пола, большие боковые карманы, свисающие стропы/ремешки
+    shoes: массивные светлые (серо-белые, грязные, потёртые) кроссовки с толстой подошвой и тёмными вставками
+    backpack: чёрный тактический рюкзак, стропы и пряжки на груди, носится на обоих плечах
+  hands: человеческие руки, кожа видна (светлая, в холодном свете — сероватая)
   forbidden_changes:
-    - форма маски
-    - геометрия глаз
-    - цвет свечения
-    - одежда
-    - пропорции тела
-    - основной силуэт
-    - зеркальное отражение кадров (из-за асимметрии маски)
+    - форма маски, положение и форма чёрного клина, трещины
+    - геометрия прорезей глаз и цвет свечения
+    - одежда, рюкзак, светлые кроссовки
+    - пропорции тела, рост, силуэт с капюшоном
+    - зеркальное отражение кадров (клин и трещины асимметричны)
 
-# Дословно вставляется в КАЖДЫЙ промпт с Фомой (англ., модели понимают лучше).
-# После утверждения дизайна TBD-фрагменты заменяются конкретикой.
+style_of_reference: тёмная стилизованная аниме-иллюстрация с кинематографичным светом (холодная луна, красные акценты окон)
+
+# Дословно вставляется в КАЖДЫЙ промпт с Фомой (англ.) вместе с референс-изображениями.
 lock_prompt_en: >-
-  FOMA, a stylized cartoon creature with human mannerisms, average height,
-  wearing a black oversized hoodie, extremely wide dark cargo pants and chunky dark sneakers with thick soles.
-  His entire face is hidden behind an asymmetrical black-and-white mask with fine cracks across its surface;
-  the mask fully covers the face. Two softly glowing pure white eyes shine through the mask.
-  Same character design as the reference images: identical mask shape, crack pattern, eye shape and clothing.
+  FOMA, a 175 cm tall young guy in a dark stylized anime look, always wearing a black oversized hoodie with the hood up,
+  messy spiky black hair strands falling from under the hood, a stitched cross detail on the chest, a black tactical
+  backpack with chest straps, extremely wide floor-length black cargo pants with big side pockets and hanging straps,
+  and chunky worn off-white sneakers with thick soles. His whole face is hidden by a matte ash-grey shield-shaped mask
+  with a pointed chin, fine dark cracks, and one tapering black wedge stripe running from the forehead (slightly right
+  of center from the viewer) down between the eyes to a point. Almond eye holes with sharp upturned outer corners glow
+  pure white. Identical to the reference sheet: same mask, stripe, cracks, eyes, outfit, backpack and sneakers.
 
 lock_negative_en: >-
-  mirrored mask, swapped black and white sides, visible mouth, visible skin on face, extra eyes,
-  blue or yellow eye glow, logos, text on clothing, jacket instead of hoodie, slim pants, extra fingers
+  mirrored mask, stripe on the wrong side, pure white mask, visible mouth or skin on the face, round cartoon eyes,
+  blue or yellow eye glow, hood down, dark sneakers, missing backpack, slim pants, logos, text on clothing, extra fingers
 
 voice:
-  status: TBD (кастинг в тесте T-01)
-  target: молодой мужской, 20–30 лет по звучанию, тёплый, живой, с иронией; в страхе — сбивчивый, тише, ближе к микрофону
-  processing: лёгкая «маска» — см. tools/scratch_voice.py (MASK_FILTER)
-  scratch_tts: edge-tts ru-RU-DmitryNeural, rate -8%, pitch -6Hz (только черновики)
+  status: casting (см. voice/README.md)
+  target: мужской, 18–22 по звучанию, средне-низкий, лёгкая хрипотца, разговорный, харизматичный, немного дерзкий, без акцента

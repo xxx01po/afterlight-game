@@ -24,7 +24,8 @@ import yaml
 from qwen_tts import Qwen3TTSModel
 
 DESIGN_MODEL = "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"
-BASE_MODEL = "Qwen/Qwen3-TTS-12Hz-1.7B-Base"
+import os
+BASE_MODEL = os.environ.get("QWEN_BASE_DIR", "Qwen/Qwen3-TTS-12Hz-1.7B-Base")  # можно указать локальную папку
 
 
 def seed_all(s):
@@ -33,9 +34,18 @@ def seed_all(s):
     torch.manual_seed(s)
 
 
+def local(name):
+    """Путь к локальной копии модели (обходит лимиты HF API); иначе — имя для скачивания."""
+    snaps = sorted((Path.home() / ".cache/huggingface/hub" / ("models--" + name.replace("/", "--")) / "snapshots").glob("*"))
+    return str(snaps[-1]) if snaps else name
+
+
 def load(name):
+    name = name if Path(name).is_dir() else local(name)
     torch.set_num_threads(4)
-    return Qwen3TTSModel.from_pretrained(name, device_map="cpu", dtype=torch.float32)
+    # fp32 по умолчанию: bf16 экономит память, но на CPU без AVX512-BF16 в ~10 раз медленнее
+    dtype = torch.bfloat16 if os.environ.get("QWEN_DTYPE") == "bf16" else torch.float32
+    return Qwen3TTSModel.from_pretrained(name, device_map="cpu", dtype=dtype)
 
 
 def main():
@@ -45,6 +55,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--seed", type=int, default=1234)
     ap.add_argument("--ref", help="REF wav for clone mode")
+    ap.add_argument("--ref-text", help="точная расшифровка REF (если модель сказала иначе, чем в yaml)")
     ap.add_argument("--only", help="comma-separated segment ids")
     ap.add_argument("--brief", default="voice_brief_en", help="ключ описания голоса в yaml")
     a = ap.parse_args()
@@ -80,7 +91,8 @@ def main():
 
     m = load(BASE_MODEL)
     r = cfg["reference"]
-    prompt = m.create_voice_clone_prompt(ref_audio=a.ref, ref_text=r["text"], x_vector_only_mode=False)
+    ref_text = a.ref_text or r["text"]
+    prompt = m.create_voice_clone_prompt(ref_audio=a.ref, ref_text=ref_text, x_vector_only_mode=False)
     for s in segs:
         seed_all(a.seed)
         t = time.time()

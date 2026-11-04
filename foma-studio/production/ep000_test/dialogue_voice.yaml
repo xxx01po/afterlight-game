@@ -1,0 +1,34 @@
+# Реплики теста T-01 в формате движков голоса (voice/engines/*). Тексты = dialogue.csv.
+voice_brief_v3_en: >-
+  Deep male voice. A 20-year-old Russian guy speaking in a low chest register, slightly hoarse, relaxed and confident.
+
+segments:
+  - id: L01
+    text: "Эй! Есть тут кто-нибудь?"
+    instruct_en: "He calls out loudly into an empty dark apartment, cautious but trying to sound bold."
+    cb_exaggeration: 0.55
+    cb_cfg: 0.5
+  - id: L02
+    text: "...Отлично. Разговариваю с пустым домом. Нормальный вечер."
+    instruct_en: "Dry sarcastic joke to himself, tired irony, a little smirk in the voice, unhurried."
+    cb_exaggeration: 0.6
+    cb_cfg: 0.45
+  - id: L03
+    text: "Так. Спокойно. Это просто дверь."
+    instruct_en: "Scared, half-whispering, trying to calm himself down, shaky breath between phrases."
+    cb_exaggeration: 0.7
+    cb_cfg: 0.35
+  - id: L04
+    text: "Двери не открываются сами... ведь правда?"
+    instruct_en: "Terrified whisper, very quiet and breathy, the question trembles at the end."
+    cb_exaggeration: 0.6
+    cb_cfg: 0.3
+  - id: L05
+    text: "Есть."
+    instruct_en: "A single word answered from the darkness, slow, flat, low and calm, eerie."
+    cb_exaggeration: 0.3
+    cb_cfg: 0.3
+
+reference:
+  id: REF
+  text: "Слушай, я понятия не имею, как я тут оказался. Ну, раз уж я здесь — давай разберёмся, что к чему."
