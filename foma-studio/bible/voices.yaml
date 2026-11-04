@@ -1,0 +1,10 @@
+# Голоса персонажей. Финальные голоса фиксируются здесь после кастинга (тест T-01, шаг 6).
+foma:
+  status: casting
+  scratch: {engine: edge-tts, voice: ru-RU-DmitryNeural, rate: "-8%", pitch: "-6Hz", processing: mask}
+  candidates:
+    - {engine: elevenlabs, method: voice_design, note: "молодой мужской 20–30, тёплый, ироничный; аудиотеги [whispers] [scared]"}
+    - {engine: fish-speech, method: clone, note: "клон с 15–30 с чистой записи (нужны права на голос)"}
+    - {engine: live_actor, note: "сильнейший вариант: липсинк не нужен — лицо под маской"}
+dark_double:
+  note: "голос из темноты = голос Фомы + обработка dark_double (tools/scratch_voice.py)"

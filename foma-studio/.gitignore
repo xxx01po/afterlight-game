@@ -1,0 +1,7 @@
+# тяжёлые медиа хранятся вне git (см. docs/02_architecture.md → Хранение)
+production/*/03_shots/
+production/*/06_export/
+*.mov
+*.wav
+*.safetensors
+__pycache__/

@@ -1,0 +1,69 @@
+# ПАСПОРТ ПЕРСОНАЖА — ФОМА
+# Единственный источник правды. Любое изменение — только по согласованию с автором канала.
+# Поля с пометкой TBD нужно заполнить по утверждённому дизайну (изображения в bible/reference/).
+
+id: foma
+version: 0.1-draft
+status: AWAITING_APPROVED_REFERENCE   # → APPROVED после загрузки утверждённого дизайна
+
+identity:
+  name: Фома
+  species: необычное мультяшное существо с человеческими повадками
+  backstory: НЕ ОПРЕДЕЛЕНА — запрещено придумывать прошлое, происхождение маски и причины появления в местах без согласования
+  knows_about_self: ничего (не помнит прошлое, не знает происхождения маски)
+
+personality:
+  - говорит естественным живым языком, без литературщины
+  - шутит, особенно когда страшно (защитная реакция)
+  - боится, удивляется, злится
+  - ошибается, иногда действует импульсивно
+  - не супергерой: убегает, прячется, паникует, но не трус до конца
+
+visual:
+  height: средний рост
+  proportions: TBD (соотношение головы к телу по утверждённому дизайну, напр. 1:5)
+  silhouette: широкий низ (очень широкие карго + массивные кроссовки), объёмный верх (оверсайз-худи), голова-маска — читаемый силуэт «треугольник вниз»
+  mask:
+    coverage: полностью закрывает лицо
+    colors: чёрный и белый, асимметрично
+    asymmetry_rule: TBD — какая половина чёрная. Описывать ОТНОСИТЕЛЬНО ФОМЫ ("on his right side") + для зрителя при анфасе
+    shape: TBD (овал / вытянутая / плоская)
+    cracks: TBD (количество, расположение — по карте трещин foma_mask_sheet.png)
+    surface: TBD (матовая керамика? лакированная? потёртая?)
+  eyes:
+    color: белое свечение
+    glow_hex: "#F4F8FF"   # почти белый, едва холодный; НЕ голубой, НЕ жёлтый
+    shape: TBD (круглые / миндалевидные / разной формы)
+    emotion_language: TBD (меняют ли глаза форму при эмоциях — предлагаю: только размер и яркость)
+  clothing:
+    hoodie: чёрное оверсайз-худи, без логотипов и надписей; капюшон — TBD (надет/снят по умолчанию)
+    pants: очень широкие штаны карго, тёмные (цвет TBD — графит/чёрный)
+    shoes: массивные тёмные кроссовки, толстая подошва
+  hands: TBD (человеческие 5 пальцев / перчатки / мультяшные)
+  forbidden_changes:
+    - форма маски
+    - геометрия глаз
+    - цвет свечения
+    - одежда
+    - пропорции тела
+    - основной силуэт
+    - зеркальное отражение кадров (из-за асимметрии маски)
+
+# Дословно вставляется в КАЖДЫЙ промпт с Фомой (англ., модели понимают лучше).
+# После утверждения дизайна TBD-фрагменты заменяются конкретикой.
+lock_prompt_en: >-
+  FOMA, a stylized cartoon creature with human mannerisms, average height,
+  wearing a black oversized hoodie, extremely wide dark cargo pants and chunky dark sneakers with thick soles.
+  His entire face is hidden behind an asymmetrical black-and-white mask with fine cracks across its surface;
+  the mask fully covers the face. Two softly glowing pure white eyes shine through the mask.
+  Same character design as the reference images: identical mask shape, crack pattern, eye shape and clothing.
+
+lock_negative_en: >-
+  mirrored mask, swapped black and white sides, visible mouth, visible skin on face, extra eyes,
+  blue or yellow eye glow, logos, text on clothing, jacket instead of hoodie, slim pants, extra fingers
+
+voice:
+  status: TBD (кастинг в тесте T-01)
+  target: молодой мужской, 20–30 лет по звучанию, тёплый, живой, с иронией; в страхе — сбивчивый, тише, ближе к микрофону
+  processing: лёгкая «маска» — см. tools/scratch_voice.py (MASK_FILTER)
+  scratch_tts: edge-tts ru-RU-DmitryNeural, rate -8%, pitch -6Hz (только черновики)

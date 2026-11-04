@@ -1,0 +1,31 @@
+# ВИЗУАЛЬНЫЙ ЯЗЫК КАНАЛА
+style_lock_en: >-
+  Cinematic stylized 3D animation, feature-film quality, night horror atmosphere.
+  Cold desaturated palette of black, graphite, dark grey and cold blue, with rare small red accents.
+  Deep shadows, volumetric fog and haze, motivated local light sources (flashlight, moonlight through windows,
+  a single bulb), realistic materials and weathering, subtle film grain, anamorphic lens feel, smooth camera movement.
+
+palette:
+  black: "#07080A"
+  graphite: "#1C1F24"
+  dark_grey: "#2E333A"
+  cold_blue: "#3B5A7A"
+  moon_blue: "#9DB4CF"
+  white_glow: "#F4F8FF"
+  red_accent: "#9E1B1B"   # ≤ 3% кадра, только значимые объекты
+
+lighting_rules:
+  - у каждого источника света есть мотивация в кадре
+  - глаза Фомы — тоже источник света: лёгкий отсвет на внутренней стороне маски и капюшоне
+  - тёмные сцены генерировать на 1 стоп светлее, затемнять в цветокоре (меньше шума и галлюцинаций)
+
+camera_rules:
+  - плавное движение: dolly, slow push-in, медленная панорама; без хаотичной ручной камеры
+  - крупные планы маски — главный эмоциональный инструмент (глаза сужаются/тускнеют)
+  - симметричные композиции коридоров и дверных проёмов — фирменный приём
+  - никаких горизонтальных отражений кадра (асимметрия маски)
+
+avoid:
+  - яркие насыщенные «детские» цвета, глянцевый пластик
+  - скримеры каждые 30 секунд
+  - копирование персонажей, кадров, обложек других каналов
