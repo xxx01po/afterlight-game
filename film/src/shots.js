@@ -211,7 +211,7 @@ function s4side(ctx, t) {
 }
 function s4chat2(ctx, t) { chatShot(ctx, t, 44, 50, { s0: 1.1, push: 0.12, o: { on: clamp((t - 44) / 0.1) } }); }
 function s5photo(ctx, t) {
-  const op = easeOut(seg(t, 50, 50.5));
+  const op = 0.35 + 0.65 * easeOut(seg(t, 50, 50.5));
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = op;
   galleryView(ctx, t, 'alone', 50, 1.0, 1.32, t < 51);
@@ -410,7 +410,7 @@ function renderFrame(frame) {
   POST.grainFx(mctx, frame, inMem ? 0.14 : 0.08);
   if (inMem) POST.dustFx(mctx, frame, 0.8);
   // fade from black at start, to black at end
-  const fadeIn = 1 - sseg(t, 0, 0.25);
+  const fadeIn = 0;
   const fadeOut = sseg(t, 71.9, 72.6);
   const blk = Math.max(fadeIn, fadeOut);
   if (blk > 0) { mctx.fillStyle = `rgba(0,0,0,${blk})`; mctx.fillRect(0, 0, W, H); }

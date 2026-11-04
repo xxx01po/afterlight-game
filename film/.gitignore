@@ -4,3 +4,8 @@ out/log_*
 out/*.wav
 out/sheet*
 out/cues.json
+out/s0_*
+out/s2_*
+out/master_hq.mp4
+out/list.txt
+out/qa/
