@@ -5,7 +5,7 @@
 id: foma
 version: 1.0
 status: APPROVED_REFERENCE   # лист получен 04.11.2026
-change_policy: любые изменения внешности, включая перевод в 3D-стиль (Foma3D master), — только после согласования с автором
+change_policy: любые изменения внешности или манеры отрисовки — только после согласования с автором; эталон и дизайна, и стиля — лист foma_sheet_v1.png
 previs_dummy: 3D-манекен из previz/ — НЕ эталон визуального качества; используется только для композиции, позы, камеры и тайминга
 reference_images:
   sheet: reference/foma_sheet_v1.png
@@ -71,16 +71,24 @@ visual:
     - зеркальное отражение кадров (клин и трещины асимметричны)
 
 style_of_reference: тёмная стилизованная аниме-иллюстрация с кинематографичным светом (холодная луна, красные акценты окон)
+# РЕШЕНИЕ АВТОРА 04.11.2026: финальный визуальный стиль фильма = стиль листа (дизайн + манера отрисовки).
+# Перевод в другую 3D-подачу (варианты A/B/C) отменён. 3D — только как глубина и движение камеры, объём света и тумана.
+final_style_canon: reference/foma_sheet_v1.png
 
 # Дословно вставляется в КАЖДЫЙ промпт с Фомой (англ.) вместе с референс-изображениями.
+style_prompt_en: >-
+  Dark cinematic anime illustration style exactly like the reference sheet: semi-realistic painterly rendering,
+  deep inky blacks, desaturated cold moonlit blues and greys, rare deep red accents, sharp graphic shadows,
+  detailed fabric folds, soft volumetric fog and haze, subtle grain, moody horror atmosphere, cinematic depth of field.
+
 lock_prompt_en: >-
-  FOMA, a 175 cm tall young guy in a dark stylized anime look, always wearing a black oversized hoodie with the hood up,
+  FOMA, a 175 cm tall young guy, always wearing a black oversized hoodie with the hood up,
   messy spiky black hair strands falling from under the hood, a stitched cross detail on the chest, a black tactical
   backpack with chest straps, extremely wide floor-length black cargo pants with big side pockets and hanging straps,
   and chunky worn off-white sneakers with thick soles. His whole face is hidden by a matte ash-grey shield-shaped mask
   with a pointed chin, fine dark cracks, and one tapering black wedge stripe running from the forehead (slightly right
-  of center from the viewer) down between the eyes to a point. Almond eye holes with sharp upturned outer corners glow
-  pure white. Identical to the reference sheet: same mask, stripe, cracks, eyes, outfit, backpack and sneakers.
+  of center from the viewer) down between the eyes to a point. BOTH almond eye holes with sharp upturned outer corners
+  glow pure white. Identical to the reference sheet: same mask, stripe, cracks, eyes, outfit, backpack and sneakers.
 
 lock_negative_en: >-
   mirrored mask, stripe on the wrong side, pure white mask, visible mouth or skin on the face, round cartoon eyes,

@@ -13,26 +13,23 @@
 
 ---
 
-## Шаг 1. Foma3D master sheet (три подачи)
+## Шаг 1. Пакет эталонов в стиле листа
 
-Приложить: `bible/reference/foma_turnaround.png`, `foma_mask_closeup.png`, `foma_outfit.png`, `foma_sheet_v1.png`.
+Решение автора: стиль фильма = стиль листа. Задача шага — не «переводить» Фому, а получить из листа **4 чистых отдельных изображения** без текста и коллажа (модели читают их лучше, чем лист целиком).
 
-**A — живописное стилизованное 3D**
-> Create a character turnaround sheet of the same character in the reference images, translated into high-end stylized 3D animation with a painterly, hand-crafted texture feel: sculpted volumes, brush-like texture on fabric and on the mask, soft cinematic rim light. Five views on one sheet: front, three-quarter front, side profile, three-quarter back, back. Neutral dark grey studio background, even light, full body visible in every view, same scale. {FOMA} {хвост}
+Приложить: `bible/reference/foma_sheet_v1.png`, `foma_turnaround.png`, `foma_mask_closeup.png`, `foma_outfit.png`.
 
-**B — кинематографичное мультяшное 3D**
-> Create a character turnaround sheet of the same character in the reference images, translated into a feature-film quality 3D animated movie look: stylized cartoon proportions with physically based materials — matte cracked ceramic mask, heavy cotton hoodie with folds, worn nylon backpack, scuffed rubber sneakers. Five views: front, three-quarter front, side profile, three-quarter back, back. Neutral dark grey studio background, soft key light and cool rim light. {FOMA} {хвост}
+**{STYLE}** (вставляется в каждый промпт картинки и видео):
+> Dark cinematic anime illustration style exactly like the reference sheet: semi-realistic painterly rendering, deep inky blacks, desaturated cold moonlit blues and greys, rare deep red accents, sharp graphic shadows, detailed fabric folds, soft volumetric fog and haze, subtle grain, moody horror atmosphere.
 
-**C — аниме-3D с тун-шейдингом**
-> Create a character turnaround sheet of the same character in the reference images as a cel-shaded 3D anime model: clean 3D forms with crisp ink outlines, two-tone flat shading, graphic shadows matching the reference illustration. Five views: front, three-quarter front, side profile, three-quarter back, back. Neutral dark grey background. {FOMA} {хвост}
+| Файл | Промпт |
+|---|---|
+| `ref_front_full.png` | Full-body front view of the same character from the reference sheet, standing in a neutral relaxed pose, hands in hoodie pocket, plain dark background, even moody light. {STYLE} {FOMA} {хвост} |
+| `ref_three_quarter.png` | Full-body three-quarter front view of the same character, neutral pose, plain dark background. {STYLE} {FOMA} {хвост} |
+| `ref_mask_macro.png` | Extreme close-up of the mask only, front view, both almond eye holes glowing pure white, crack pattern and the black wedge clearly visible, hood framing the mask. {STYLE} {FOMA} {хвост} |
+| `ref_back_backpack.png` | Full-body back view of the same character showing the hood, the black tactical backpack with straps, and the wide cargo pants, plain dark background. {STYLE} {FOMA} {хвост} |
 
-**Дополнительно для утверждённой подачи** (тот же стиль, по одному изображению):
-1. `master_front_full.png` — анфас в полный рост, нейтральная поза.
-2. `master_three_quarter.png` — ¾ анфас.
-3. `master_mask_macro.png` — маска крупно, анфас, оба глаза светятся: *«Extreme close-up of the mask only, front view, both eye holes glowing white, crack pattern and black wedge clearly visible, soft studio light.»*
-4. `master_back_backpack.png` — спина с рюкзаком.
-
-Эти 4 файла = **эталон-пакет**, в этом порядке подаются во все дальнейшие шаги.
+Эти 4 файла = **эталон-пакет** `FomaRef_v1`, в этом порядке подаются во все дальнейшие шаги. После твоего утверждения — фиксируются в `bible/reference/pack_v1/`.
 
 ---
 
@@ -41,7 +38,7 @@
 Приложить: направляющий кадр (`keyframe_guides/SHxx_start_guide.jpg`) **первым**, затем эталон-пакет (4 файла).
 
 Общая формула:
-> Image 1 is a 3D previsualization frame: use it ONLY for camera angle, framing, pose and light direction. Images 2–5 define the character's exact appearance. Render this exact shot as a final frame of a cinematic 3D animated horror film in the approved style. {сцена} {FOMA} {хвост} Aspect ratio 16:9.
+> Image 1 is a 3D previsualization frame: use it ONLY for camera angle, framing, pose and light direction. Images 2–5 define the character's exact appearance. Render this exact shot as a final film frame in the art style of the reference sheet, with cinematic depth. {сцена} {STYLE} {FOMA} {хвост} Aspect ratio 16:9.
 
 | Кадр | `{сцена}` |
 |---|---|
@@ -64,7 +61,7 @@
 > Follow the reference video only for camera movement, timing and body motion; take the character's appearance only from the reference images.
 
 **Video-to-video (путь «перерисовки» превиза)** — Kling O1 Edit или Luma Ray3 Modify, вход — клип превиза SH02:
-> Replace the grey mannequin character in the video with @Foma from the reference images, keeping exactly the same movements, camera angles and timing. Render as a cinematic 3D animated horror film in the approved style. {FOMA}
+> Replace the grey mannequin character in the video with @Foma from the reference images, keeping exactly the same movements, camera angles and timing. Render it in the dark cinematic anime illustration style of the reference sheet. {STYLE} {FOMA}
 
 ---
 
