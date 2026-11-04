@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "modules": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "default": true,
+            "type": "boolean"
+          },
+          "tools": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "allow",
+                "deny"
+              ]
+            }
+          },
+          "ratePerMinute": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 10000
+          },
+          "sessionQuota": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 1000000
+          }
+        }
+      }
+    },
+    "filesystem": {
+      "default": {
+        "allowedRoots": [
+          "."
+        ],
+        "denySegments": [
+          ".git",
+          "node_modules",
+          ".ssh",
+          ".gnupg",
+          ".aws"
+        ],
+        "maxFileBytes": 1000000,
+        "maxFiles": 2000
+      },
+      "type": "object",
+      "properties": {
+        "allowedRoots": {
+          "default": [
+            "."
+          ],
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "denySegments": {
+          "default": [
+            ".git",
+            "node_modules",
+            ".ssh",
+            ".gnupg",
+            ".aws"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maxFileBytes": {
+          "default": 1000000,
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 20000000
+        },
+        "maxFiles": {
+          "default": 2000,
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 50000
+        }
+      }
+    },
+    "network": {
+      "default": {
+        "enabled": true,
+        "allowedHosts": [
+          "api.github.com",
+          "registry.npmjs.org"
+        ],
+        "timeoutMs": 15000,
+        "maxResponseBytes": 5000000
+      },
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "default": true,
+          "type": "boolean"
+        },
+        "allowedHosts": {
+          "default": [
+            "api.github.com",
+            "registry.npmjs.org"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeoutMs": {
+          "default": 15000,
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 120000
+        },
+        "maxResponseBytes": {
+          "default": 5000000,
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 50000000
+        }
+      }
+    },
+    "audit": {
+      "default": {
+        "enabled": true,
+        "path": ".zero/audit.jsonl"
+      },
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "default": true,
+          "type": "boolean"
+        },
+        "path": {
+          "default": ".zero/audit.jsonl",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

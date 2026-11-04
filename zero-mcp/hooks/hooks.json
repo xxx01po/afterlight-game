@@ -1,0 +1,21 @@
+{
+  "description": "ZERO safety hooks: block destructive/exfiltrating shell commands, block writing live credentials, journal tool use.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/guard-bash.mjs\"", "timeout": 10 }]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/guard-write.mjs\"", "timeout": 10 }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/log-tool-use.mjs\"", "timeout": 10, "async": true }]
+      }
+    ]
+  }
+}

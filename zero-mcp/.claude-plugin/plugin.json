@@ -1,0 +1,17 @@
+{
+  "name": "zero",
+  "version": "0.1.0",
+  "description": "ZERO: permission-gated MCP intelligence tools (repo health, npm vetting, secret scan, config lint, vetted catalog), safety hooks, research/security/review skills and subagents.",
+  "author": {
+    "name": "xxx01po"
+  },
+  "keywords": [
+    "mcp",
+    "security",
+    "research",
+    "github",
+    "hooks",
+    "skills",
+    "subagents"
+  ]
+}

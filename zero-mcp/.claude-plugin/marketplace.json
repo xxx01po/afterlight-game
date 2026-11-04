@@ -1,0 +1,16 @@
+{
+  "name": "zero-local",
+  "owner": {
+    "name": "xxx01po"
+  },
+  "metadata": {
+    "description": "Local marketplace for the ZERO MCP plugin"
+  },
+  "plugins": [
+    {
+      "name": "zero",
+      "source": "./",
+      "description": "ZERO MCP intelligence & safety plugin"
+    }
+  ]
+}

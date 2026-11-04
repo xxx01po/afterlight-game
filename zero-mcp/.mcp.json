@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "zero": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/index.js"],
+      "env": {
+        "ZERO_PROJECT_DIR": "${CLAUDE_PROJECT_DIR:-.}",
+        "GITHUB_TOKEN": "${ZERO_GITHUB_TOKEN:-}"
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "zero-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ZERO MCP: modular, permission-gated MCP server + Claude Code plugin (skills, subagents, safety hooks).",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=20" },
+  "bin": { "zero-mcp": "dist/index.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "start": "node dist/index.js",
+    "doctor": "node dist/index.js --doctor",
+    "check": "npm run typecheck && npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0",
+    "@types/node": "^22.20.5",
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.0"
+  }
+}
