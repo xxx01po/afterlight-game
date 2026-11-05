@@ -222,7 +222,7 @@ const DESK_TOP = 0.76;
 }
 
 // MIRROR on front wall (z = +RZ), facing the door
-const MIRROR = { x: 0.2, y: 1.28, w: 0.95, h: 1.95 };
+const MIRROR = { x: 0.2, y: 1.5, w: 1.0, h: 2.6 };
 const mirrorGroup = new THREE.Group(); mirrorGroup.position.set(MIRROR.x, MIRROR.y, RZ - 0.03); mirrorGroup.rotation.y = Math.PI; room.add(mirrorGroup);
 const reflector = new Reflector(new THREE.PlaneGeometry(MIRROR.w, MIRROR.h), { textureWidth: 720 * SCALE, textureHeight: 1440 * SCALE, color: 0x9aa3b5, clipBias: 0.003 });
 reflector.camera.layers.enable(1); // the figure exists only here
@@ -357,11 +357,11 @@ const dup = makeAvatar(2); scene.add(dup.root);
 const fig = (() => {
   const root = new THREE.Group();
   const black = M(0x040406, 0.95), smoke = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35, depthWrite: false });
-  const hips = new THREE.Group(); hips.position.y = 1.32; root.add(hips);
+  const hips = new THREE.Group(); hips.position.y = 1.2; root.add(hips);
   const parts = [];
   const P = (parent, w, h, d, x, y, z) => { const m = add(parent, box(w, h, d, black, 0.02), x, y, z); parts.push(m); const s = new THREE.Mesh(m.geometry, smoke); s.scale.set(1.12, 1.03, 1.12); m.add(s); return m; };
   const legs = [];
-  for (const s of [-1, 1]) { const leg = new THREE.Group(); leg.position.set(s * 0.09, 0, 0); hips.add(leg); P(leg, 0.11, 1.32, 0.11, 0, -0.66, 0); legs.push(leg); }
+  for (const s of [-1, 1]) { const leg = new THREE.Group(); leg.position.set(s * 0.09, 0, 0); hips.add(leg); P(leg, 0.11, 1.2, 0.11, 0, -0.6, 0); legs.push(leg); }
   const chest = new THREE.Group(); chest.rotation.x = 0.28; hips.add(chest);
   P(chest, 0.34, 0.86, 0.17, 0, 0.43, 0);
   const arms = [];
@@ -483,8 +483,9 @@ function heroState(t) {
   else if (t < 12.2) look = doorPt;
   else if (t < 15.1) look = 'phone';
   else if (t < 16.4) look = V(0.2, 1.3, 2.6);
-  else if (t < 19.7) look = 'phone';
-  else look = V(MIRROR.x, 1.75, RZ);
+  else if (t < 18.15) look = 'phone';
+  else if (t < 19.7) look = V(MIRROR.x - 0.1, 1.35, RZ);
+  else look = V(MIRROR.x, 2.05, RZ);
   s.look = look;
   // face
   const fear = seg(t, 1.15, 1.45);
@@ -595,12 +596,12 @@ const SHOTS = [
   { id: '4A', t0: 15.1, t1: 15.55, f(t, u) { const h = headPos(); const fw = faceFwd(); setCam(h.clone().addScaledVector(fw, 0.75).add(V(0, -0.05, 0)).add(shake(0.02, t, 9)), h, 36, 0.12 * (1 - u)); } },
   { id: '4B', t0: 15.55, t1: 16.6, f(t, u) { const h = headPos(); setCam(h.clone().add(V(0.02, 0.02, 0.05)), vlerp(V(-1.4, 0.7, 1.6), V(MIRROR.x, 1.3, RZ), ease(u)), 58, 0.0); } },
   { id: '4C', t0: 16.6, t1: 18.2, f(t, u) { phoneInsert(lerp(0.2, 0.16, u), 50, 0.06); } },
-  { id: '4D', t0: 18.2, t1: 19.65, f(t, u) { const h = headPos(); const fw = faceFwd(); setCam(h.clone().addScaledVector(fw, lerp(0.42, 0.34, u)).add(V(0, 0.03, 0)).add(shake(0.003, t, 11)), h.clone().add(V(0, 0.03, 0)), 30, 0.0); } },
+  { id: '4D', t0: 18.2, t1: 19.65, f(t, u) { const h = headPos(); const b = basis(); const fw = faceFwd(); setCam(h.clone().addScaledVector(fw, lerp(0.95, 0.85, u)).add(shake(0.003, t, 11)), h.clone().add(V(0, -0.02, 0)), lerp(27, 23, u), 0.0); } },
   { id: '4E', t0: 19.65, t1: 20.6, f(t, u) { const h = headPos(); setCam(h.clone().add(V(-0.12, lerp(-0.45, -0.55, u), 0.75)), h, 40, 0.05); } },
-  { id: '4F', t0: 20.6, t1: 21.35, f(t, u) { const h = headPos(); setCam(h.clone().add(V(0.32, 0.12, -0.42 + 0.12 * u)), V(MIRROR.x, 1.55, RZ), lerp(44, 38, u), 0.0); } },
-  { id: '4G', t0: 21.35, t1: 22.0, f(t, u) { setCam(vlerp(V(-0.75, 1.15, -1.95), V(-0.65, 1.15, -1.75), u), V(MIRROR.x - 0.05, 1.35, RZ), 52, 0.0); } },
-  { id: '5A', t0: 22.0, t1: 23.6, f(t, u) { const k = impulse(t, [22.1, 22.45, 22.75], 12); setCam(V(MIRROR.x - 0.25, 1.55, lerp(0.95, 1.15, u)).add(shake(0.02 * k, t, 13)), V(MIRROR.x, 1.5, RZ), 50, 0.0); } },
-  { id: '5B', t0: 23.6, t1: 25.0, f(t, u) { setCam(V(MIRROR.x - 0.3 + 0.05 * u, 1.5, lerp(1.25, 1.55, ease(u))), V(MIRROR.x, 1.62, RZ), 50, -0.18 * u); } },
+  { id: '4F', t0: 20.6, t1: 21.35, f(t, u) { const h = headPos(); setCam(h.clone().add(V(0.6, 0.2, -0.75 + 0.12 * u)), V(MIRROR.x - 0.1, 1.95, RZ), lerp(50, 44, u), 0.0); } },
+  { id: '4G', t0: 21.35, t1: 22.0, f(t, u) { setCam(vlerp(V(-0.75, 1.15, -1.95), V(-0.65, 1.15, -1.75), u), V(MIRROR.x - 0.05, 1.95, RZ), 60, 0.0); } },
+  { id: '5A', t0: 22.0, t1: 23.6, f(t, u) { const k = impulse(t, [22.1, 22.45, 22.75], 12); setCam(V(MIRROR.x - 0.25, 1.7, lerp(0.75, 0.95, u)).add(shake(0.02 * k, t, 13)), V(MIRROR.x, 1.85, RZ), 54, 0.0); } },
+  { id: '5B', t0: 23.6, t1: 25.0, f(t, u) { setCam(V(MIRROR.x - 0.3 + 0.05 * u, 1.75, lerp(1.0, 1.35, ease(u))), V(MIRROR.x - 0.3, 2.0, RZ), 52, -0.18 * u); } },
   { id: '5C', t0: 25.0, t1: 26.25, f(t, u) { phoneInsert(lerp(0.21, 0.17, u), 50, -0.08); cam.position.add(shake(0.003, t, 15)); } },
   { id: '5D', t0: 26.25, t1: 28.0, f(t, u) { const h = headPos(); const fw = faceFwd(); const r = V(fw.z, 0, -fw.x); setCam(h.clone().addScaledVector(fw, 0.75).addScaledVector(r, -lerp(0.75, 0.6, u)).add(V(0, -0.04, 0)), h.clone(), lerp(36, 28, ease(seg(u, 0.5, 1))), 0.0); } },
   { id: 'BLACK', t0: 28.0, t1: 30.01, black: true, f() { } },
@@ -694,7 +695,7 @@ function update(t) {
   const feet = t > 3.4 && t < 15.55 ? 1 : 0;
   drawGap(hallOn, feet, Math.round(noise1(t * 0.5, 2) * 4));
   hallLight.intensity = hallOn ? 1.2 : 0;
-  figLight.intensity = t > 19.7 && t < 28 ? 3.2 + 0.5 * noise1(t * 3, 4) : 0;
+  figLight.intensity = t > 19.7 && t < 28 ? 4.5 + 0.6 * noise1(t * 3, 4) : 0;
   // mirror cracks
   drawCracks(t - 22.05);
   drawPhoneScreen(t);
@@ -759,3 +760,4 @@ window.renderRef = (who, view) => {
   ctx.fillStyle = '#fff'; ctx.font = '800 56px Inter'; ctx.textAlign = 'left'; ctx.fillText((who === 'figure' ? 'ФИГУРА' : 'ГЕРОЙ') + ' · ' + { front: 'спереди', side: 'сбоку', back: 'сзади', face: 'лицо' }[view], 60, 120);
   return out.toDataURL('image/jpeg', 0.92);
 };
+window.__dbg4 = () => { const rc = new THREE.Raycaster(); const h = headPos(); const dir = h.clone().sub(cam.position).normalize(); rc.set(cam.position, dir); rc.layers.set(0); const hits = rc.intersectObjects(scene.children, true).slice(0, 4).map(x => ({ d: +x.distance.toFixed(3), geo: x.object.geometry.type, p: x.object.geometry.parameters ? Object.values(x.object.geometry.parameters).slice(0, 3).map(v => +(+v).toFixed?.(2)) : null, vis: x.object.visible })); return { cam: cam.position.toArray().map(v => +v.toFixed(2)), head: h.toArray().map(v => +v.toFixed(2)), hits }; };

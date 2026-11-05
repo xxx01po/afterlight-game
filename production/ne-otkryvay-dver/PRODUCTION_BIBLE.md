@@ -83,6 +83,7 @@ Roblox Horror Short · 9:16 · 1080×1920 · 30 FPS · 30.0 с (900 кадров
 ```
 
 - **Свет:** холодная «луна» из окна (спот `#86A6FF`, мягкие тени), синий fill сверху, тёплая полоска из коридора под дверью (гаснет на 15.55 с), свет экрана телефона на лице снизу, красные цифры часов **3:17**, холодный свет на стене двери только при появлении фигуры.
+- **Зеркало:** в пол, почти до потолка (2.6 м). Иначе голова фигуры не помещается в отражение.
 - **Детали-якоря:** часы 3:17 (то же время на экране блокировки и в REC видео), постер, клетчатая кровать, тёмные углы, туман глубины.
 
 ---
@@ -105,7 +106,7 @@ Roblox Horror Short · 9:16 · 1080×1920 · 30 FPS · 30.0 с (900 кадров
 | 4A | 15.10–15.55 | 0.45 | Резко оборачивается | Ужас | CU | Фронтально, голл. 7°→0 | Whip pan вместе с головой | Экран | Свист, вдох-всхлип, стук **обрывается** | Склейка |
 | 4B | 15.55–16.60 | 1.05 | Пусто: кровать → зеркало (в нём только он). Свет под дверью погас | Ложное облегчение | POV | На уровне глаз | Панорама кровать → зеркало | Луна | Тишина + комнатный тон | Склейка |
 | 4C | 16.60–18.20 | 1.60 | Экран: «Неизвестный», живая волна голоса | — | Вставка (экран) | POV | Наезд | Экран | Голос из телефона «НЕ ОБОРАЧИВАЙСЯ…» | Склейка |
-| 4D | 18.20–19.65 | 1.45 | Глаза дрожат, зрачки крошечные | Животный страх | ECU глаз | Фронтально | Микротряска | Экран | «…ОНО ТЕПЕРЬ ЗНАЕТ, ЧТО ТЫ МЕНЯ УСЛЫШАЛ», сердцебиение | Склейка |
+| 4D | 18.20–19.65 | 1.45 | Перестаёт смотреть в телефон и замирает, глядя перед собой. Глаза дрожат, зрачки крошечные | Животный страх | ECU глаз | Фронтально | Микротряска | Экран | «…ОНО ТЕПЕРЬ ЗНАЕТ, ЧТО ТЫ МЕНЯ УСЛЫШАЛ», сердцебиение | Склейка |
 | 4E | 19.65–20.60 | 0.95 | Медленно поднимает глаза на зеркало | Обречённость | CU | Нижний | Микро-наезд | Экран | Нарастающий райзер | Склейка на удар |
 | 4F | 20.60–21.35 | 0.75 | В зеркале за его спиной **высокая чёрная фигура** | Ужас | Через плечо в зеркало | На уровне плеча | Наезд 44→38° | Холодный свет на фигуре | **Стинг** (сабудар + кластер) | Склейка |
 | 4G | 21.35–22.00 | 0.65 | Тот же момент с другой стороны: пространство за ним **пустое**, а зеркало показывает фигуру | — | Общий от двери | На уровне груди | Медленный наезд | Луна | Дрожащее дыхание | Склейка на треск |
@@ -125,7 +126,7 @@ Roblox Horror Short · 9:16 · 1080×1920 · 30 FPS · 30.0 с (900 кадров
 > Roblox-style blocky avatar boy: rounded cube head, classic bright yellow skin, black messy blocky hair with two fringe blocks, big white oval cartoon eyes with thick black outline and round black pupils, thick black eyebrows; red hoodie with dark-red hood and kangaroo pocket, two white drawstrings; dark navy jeans; white sneakers; R6 body proportions (no elbows/knees). Same outfit in every shot.
 
 **Общий блок локации:**
-> Small dark bedroom at night, Roblox plastic geometry: wooden plank floor, blue striped wallpaper, wooden door on the back wall with a thin warm orange light gap under it, tall wooden-framed mirror on the opposite wall, single bed with navy blanket on the left wall, desk with phone, unlit lamp and red LED clock showing 3:17 on the right wall, window with moonlight. Cold blue moonlight, deep shadows, volumetric haze, cinematic lighting, shallow depth of field, 9:16 vertical, 30 fps, high detail 3D animation, not gameplay footage.
+> Small dark bedroom at night, Roblox plastic geometry: wooden plank floor, blue striped wallpaper, wooden door on the back wall with a thin warm orange light gap under it, tall floor-to-ceiling wooden-framed mirror on the opposite wall, single bed with navy blanket on the left wall, desk with phone, unlit lamp and red LED clock showing 3:17 on the right wall, window with moonlight. Cold blue moonlight, deep shadows, volumetric haze, cinematic lighting, shallow depth of field, 9:16 vertical, 30 fps, high detail 3D animation, not gameplay footage.
 
 **Negative prompt (для всех):**
 > changing outfit, different hoodie color, different hair, realistic human skin, extra limbs, extra fingers, deformed face, melting geometry, flickering objects, morphing furniture, moving furniture, different room, daylight, text artifacts, watermark, logo, gameplay UI, health bar, chat window, low poly glitches, uncontrolled camera shake, fisheye distortion, blurry face, smiling hero, gore, blood

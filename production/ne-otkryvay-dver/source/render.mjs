@@ -36,10 +36,10 @@ if (mode === 'test') {
     console.log('frame', ts, id);
   }
 } else {
-  const total = 900;
+  const total = parseInt(process.argv[6] || '900'); const start = parseInt(process.argv[5] || '0');
   const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', '30', '-c:v', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '14', '-pix_fmt', 'yuv420p', outArg], { stdio: ['pipe', 'inherit', 'inherit'] });
   const t0 = Date.now();
-  for (let f = 0; f < total; f++) {
+  for (let f = start; f < total; f++) {
     await page.evaluate(f => window.renderFrame(f), f);
     const data = await page.evaluate(() => window.grab(0.95));
     const buf = Buffer.from(data.split(',')[1], 'base64');
