@@ -1,0 +1,10 @@
+import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);
+const { chromium } = require('playwright'); import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const ROOT = path.dirname(new URL(import.meta.url).pathname);
+const server = http.createServer((q, r) => { const p = path.join(ROOT, q.url.split('?')[0]); fs.readFile(p, (e, d) => { if (e) { r.writeHead(404); r.end(); return; } r.writeHead(200, { 'Content-Type': p.endsWith('.js') ? 'text/javascript' : 'text/html' }); r.end(d); }); }).listen(0);
+const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const p = await b.newPage(); p.on('pageerror', e => console.log('ERR', e.message));
+const vo = JSON.parse(fs.readFileSync(path.join(ROOT, 'timeline_vo.json'))); await p.addInitScript(v => { window.SUBS = []; window.VO = v; }, vo);
+await p.goto(`http://localhost:${server.address().port}/index.html`); await p.waitForFunction(() => window.renderCover); await p.evaluate(() => window.ready);
+fs.writeFileSync(process.argv[2], Buffer.from((await p.evaluate(() => window.renderCover())).split(',')[1], 'base64'));
+await b.close(); server.close();
