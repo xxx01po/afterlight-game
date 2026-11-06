@@ -590,3 +590,15 @@ window.grab = (q = 0.93) => out.toDataURL('image/jpeg', q);
 window.TOTAL = TOTAL;
 window.ready = document.fonts.load('900 60px Inter').then(() => true);
 window.__dbg = () => { const f = v => v.toArray().map(x => +x.toFixed(2)); return { cam: f(cam.position), foma: f(foma.root.position) }; };
+window.renderCover = (t = 17.4) => {
+  update(t);
+  setCam(fH().add(V(2.5, 0.15, 1.5)), fH().add(V(0, -0.3, 0)), 58); lookAtWorld(foma, cam.position, 1);
+  lookAtWorld(foma, cam.position, 1);
+  renderer.render(scene, cam); ctx.drawImage(renderer.domElement, 0, 0, W, H);
+  const gr = ctx.createLinearGradient(0, 0, 0, 720); gr.addColorStop(0, 'rgba(0,0,0,0.8)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, 720);
+  ctx.textAlign = 'center'; ctx.lineJoin = 'round';
+  const big = (txt, y, size, col) => { ctx.font = `900 ${size}px Inter`; ctx.lineWidth = 22; ctx.strokeStyle = '#000'; ctx.strokeText(txt, W / 2, y); ctx.fillStyle = col; ctx.fillText(txt, W / 2, y); };
+  big('МЕНЯ ПРИНЯЛИ', 240, 112, '#fff'); big('ЗА УЧИТЕЛЯ?!', 400, 140, '#ffd21a');
+  ctx.save(); ctx.translate(800, 1600); ctx.rotate(-0.1); ctx.fillStyle = '#2f80ed'; rr(ctx, -210, -78, 420, 156, 30); ctx.fill(); ctx.lineWidth = 10; ctx.strokeStyle = '#fff'; rr(ctx, -210, -78, 420, 156, 30); ctx.stroke(); ctx.fillStyle = '#fff'; ctx.font = '900 62px Inter'; ctx.fillText('Я УЧЕНИК!', 0, 22); ctx.restore();
+  return out.toDataURL('image/png');
+};
