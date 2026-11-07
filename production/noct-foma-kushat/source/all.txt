@@ -1,0 +1,11 @@
+F0|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.35|0.5|Сего́дня я забани́л со́бственную ма́му.
+M1|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_mom.wav|0.7|0.4|Фома́, ку́шать!
+F1|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.6|0.4|Ща, мам, иду́!
+M2|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_mom.wav|1.0|0.3|ФОМА́! КУ́ШАТЬ!
+F2|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.7|0.4|Одну́ мину́точку!
+F3|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.3|0.5|Она́... замолча́ла.
+F4|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|1.0|0.3|Нет. Нет-нет-нет!
+F5|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.9|0.3|Мам, ты меша́ешь фина́лу!
+F6|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.5|0.5|Прости́, мам. Э́то фина́л.
+M3|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_mom.wav|0.4|0.5|Бан. На неде́лю.
+F7|/tmp/claude-0/-home-user-afterlight-game/5c41aa99-3525-5b59-b993-dc7d5c81026e/scratchpad/kushat/vo/ref_foma.wav|0.3|0.5|Справедли́во.

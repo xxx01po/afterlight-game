@@ -258,8 +258,9 @@ def dun(): n = int(0.45 * SR); t = T(n); return (signal.square(2 * np.pi * 98 * 
 def tick(): n = int(0.03 * SR); return bp(rng.standard_normal(n), 2500, 7000) * np.exp(-T(n) * 220)
 
 # ================= KUSHAT EPISODE =================
-HOOK = vo('F0')['t1'] + 0.25; SIL = vo('F2')['t1'] + 0.2; JOIN = vo('F3')['t1'] + 0.35; BLOCK = vo('F4')['t1'] + 0.1
-TYPE = vo('F5')['t1'] + 0.25; BANNED = TYPE + 1.25; DOOR = vo('F6')['t1'] + 0.6; PULL = vo('M3')['t0'] - 0.55
+FFA, FFB, RW0, HOOK = 0.95, 1.6, 2.62, 2.95
+SIL = vo('F2')['t1'] + 0.15; JOIN = 13.75; BLOCK = vo('F4')['t1'] + 0.08; CHAT = [BLOCK + 0.3, BLOCK + 1.0, BLOCK + 1.7]; KILLER = BLOCK + 2.45; LOGOUT = BLOCK + 3.35
+TYPE = vo('F5')['t1'] + 0.15; BANNED = TYPE + 1.2; DOOR = vo('F6')['t1'] + 0.35; PULL = DOOR + 1.5; OFF = PULL + 0.3
 def clang(seed):
     r = np.random.default_rng(seed); n = int(0.6 * SR); t = T(n); x = np.zeros(n)
     for f in [1830, 2470, 3120, 4410]: x += np.sin(2 * np.pi * f * r.uniform(0.97, 1.03) * t) * np.exp(-t * r.uniform(8, 14))
@@ -273,50 +274,57 @@ def poof(): n = int(0.5 * SR); t = T(n); return lp(rng.standard_normal(n), 2500)
 def drone(d, f=55): n = int(d * SR); t = T(n); x = np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * f * 1.5 * t + 0.4 * np.sin(2 * np.pi * 0.3 * t)); return lp(x, 400) * env_adsr(n, 0.4, 0.6)
 def hum(d): n = int(d * SR); return lp(rng.standard_normal(n), 300) * 0.4 + np.sin(2 * np.pi * 50 * T(n)) * 0.15
 
-# hook: dark drone + whisper, hard cut into the game with a sting
-sfx.add(drone(HOOK + 0.1, 49), 0.0, db(-14))
-sfx.add(dun() * 1.3, HOOK - 0.02, db(-9)); sfx.add(whoosh2(0.35), HOOK - 0.3, db(-14))
-# battle in the game
-for i, s in enumerate(np.arange(HOOK + 0.15, SIL - 0.4, 0.62)):
-    if not (vo('M1')['t0'] - 0.1 < s < vo('M1')['t1'] or vo('M2')['t0'] - 0.1 < s < vo('M2')['t1']): sfx.add(clang(i), s + 0.08 * (i % 3), db(-17), pan=0.2 * ((-1) ** i))
-# silence beat: room hum + clock + one creak
-sfx.add(hum(JOIN - SIL), SIL, db(-24))
-for s in np.arange(SIL + 0.3, JOIN - 0.2, 0.75): sfx.add(tick(), s, db(-15))
-sfx.add(creak(0.5, 230, 3), SIL + 1.6, db(-22), pan=-0.4)
+# hook: drone + flash-forward ban stab + rewind
+sfx.add(drone(RW0 + 0.1, 49), 0.0, db(-14))
+sfx.add(whoosh2(0.3), FFA - 0.25, db(-12)); sfx.add(poof(), FFA + 0.05, db(-9)); sfx.add(dun(), FFA, db(-10)); sfx.add(boom(0.8, 70) * 0.5, FFB, db(-16))
+sfx.add(rewind(0.4), RW0, db(-9)); sfx.add(glitch(0.15), RW0, db(-16)); sfx.add(dun() * 1.3, HOOK - 0.02, db(-10))
+# battle
+for i, s0 in enumerate(np.arange(HOOK + 0.15, SIL - 0.4, 0.55)):
+    if not any(vo(k)['t0'] - 0.1 < s0 < vo(k)['t1'] for k in ('M1', 'M2', 'F2')): sfx.add(clang(i), s0 + 0.07 * (i % 3), db(-17), pan=0.2 * ((-1) ** i))
+# M2 shout hits like a punch
+sfx.add(thud(2), vo('M2')['t0'], db(-8)); sfx.add(rattle(0.4, 3), vo('M2')['t0'] + 0.05, db(-18), pan=-0.3); sfx.add(swish(), vo('F2')['t0'], db(-18))
+# silence beat
+sfx.add(hum(vo('F3')['t1'] - SIL), SIL, db(-24))
+for s0 in np.arange(SIL + 0.2, vo('F3')['t1'], 0.6): sfx.add(tick(), s0, db(-15))
+sfx.add(creak(0.45, 230, 3), SIL + 0.7, db(-21), pan=-0.4)
 # mom joins the server
-sfx.add(glitch(0.3), JOIN - 0.05, db(-12)); sfx.add(boom(1.2, 70) * 0.7, JOIN + 0.45, db(-12)); sfx.add(ping(), JOIN, db(-12))
-for k in range(3): sfx.add(ping(), BLOCK + 0.3 + k * 0.9, db(-13))
-sfx.add(thud(4), BLOCK - 0.05, db(-9)); sfx.add(bonk(), BLOCK + 0.05, db(-16))
-for i, s in enumerate(np.arange(JOIN + 1.0, TYPE - 0.4, 0.8)):
-    if not any(vo(k)['t0'] - 0.1 < s < vo(k)['t1'] for k in ('F4', 'F5')): sfx.add(clang(50 + i), s, db(-19), pan=-0.2)
+sfx.add(glitch(0.3), JOIN - 0.05, db(-11)); sfx.add(whoosh2(0.5), JOIN - 0.1, db(-13)); sfx.add(boom(1.2, 70) * 0.8, JOIN + 0.6, db(-10)); sfx.add(ping(), JOIN, db(-12))
+sfx.add(dun(), vo('F4')['t0'] + 0.15, db(-12))
+for c in CHAT: sfx.add(ping(), c, db(-12))
+sfx.add(bonk(), CHAT[2] + 0.05, db(-15)); sfx.add(thud(4), BLOCK, db(-11))
+sfx.add(ping(), KILLER, db(-12)); sfx.add(slide_down(0.6) * 0.7, KILLER + 0.2, db(-20))
+sfx.add(poof(), LOGOUT, db(-10)); sfx.add(tone(880, 0.12, 20, 'sq') * 0.5, LOGOUT, db(-18)); sfx.add(tone(440, 0.2, 14, 'sq') * 0.5, LOGOUT + 0.1, db(-18))
+for i, s0 in enumerate(np.arange(JOIN + 1.2, TYPE - 0.3, 0.75)):
+    if not any(vo(k)['t0'] - 0.1 < s0 < vo(k)['t1'] for k in ('F4', 'F5')) and abs(s0 - LOGOUT) > 0.3: sfx.add(clang(50 + i), s0, db(-20), pan=-0.2)
+sfx.add(swish(), vo('F5')['t0'] - 0.05, db(-16)); sfx.add(dun(), vo('F5')['t0'] + 0.8, db(-13))
 # typing /ban МАМА
 for i in range(9): sfx.add(key(100 + i), TYPE + i / 12 + 0.02, db(-9))
 sfx.add(key(200) * 1.6, TYPE + 0.95, db(-6))
 # banned
-sfx.add(whoosh2(0.45), BANNED - 0.35, db(-11)); sfx.add(poof(), BANNED, db(-8)); sfx.add(dun() * 0.8, BANNED + 0.02, db(-12))
+sfx.add(whoosh2(0.45), BANNED - 0.35, db(-11)); sfx.add(poof(), BANNED, db(-7)); sfx.add(boom(1.0, 60) * 0.7, BANNED, db(-11))
 def fanfare():
     out = np.zeros(int(1.0 * SR))
     for k, (f, s0) in enumerate([(523, 0), (659, 0.12), (784, 0.24), (1047, 0.36)]):
         n = int((0.64 if k == 3 else 0.14) * SR); tt = T(n); x = signal.square(2 * np.pi * f * tt, 0.3) * 0.4 * np.exp(-tt * (2 if k == 3 else 10)); i = int(s0 * SR); out[i:i + n] += x[:len(out) - i]
     return lp(out, 4000)
-sfx.add(fanfare(), BANNED + 0.35, db(-14))
+sfx.add(fanfare(), BANNED + 0.4, db(-13))
 # the real door
-sfx.add(creak(1.1, 150, 9), DOOR, db(-9), pan=-0.3)
-for i, s in enumerate(np.arange(DOOR + 0.5, DOOR + 1.6, 0.42)): sfx.add(step(700 + i, 1.2), s, db(-9), pan=-0.2)
-sfx.add(drone(PULL - DOOR + 0.2, 41), DOOR, db(-15))
-# pull the plug
-sfx.add(yank(), PULL, db(-6)); sfx.add(powerdown(1.1), PULL + 0.02, db(-10)); sfx.add(click(), PULL + 0.05, db(-10))
-sfx.add(hum(vo('F7')['t0'] - PULL - 0.3), PULL + 0.3, db(-28))
+sfx.add(dun() * 1.2, DOOR, db(-10)); sfx.add(creak(1.1, 150, 9), DOOR, db(-9), pan=-0.3)
+for i, s0 in enumerate(np.arange(DOOR + 0.45, DOOR + 1.4, 0.36)): sfx.add(step(700 + i, 1.2), s0, db(-9), pan=-0.2)
+sfx.add(drone(PULL - DOOR + 0.4, 41), DOOR, db(-15))
+# pull the plug -> monitor dies
+sfx.add(yank(), PULL, db(-6)); sfx.add(click(), PULL + 0.03, db(-10)); sfx.add(powerdown(1.1), OFF, db(-9))
+sfx.add(hum(vo('F7')['t0'] - OFF - 0.3), OFF + 0.3, db(-28))
 sfx.add(boom(1.4, 55) * 0.8, vo('M3')['t1'] + 0.05, db(-10))
-for s in np.arange(vo('M3')['t1'] + 0.4, vo('F7')['t0'] - 0.1, 0.75): sfx.add(tick(), s, db(-18))
+for s0 in np.arange(vo('M3')['t1'] + 0.4, vo('F7')['t0'] - 0.1, 0.6): sfx.add(tick(), s0, db(-18))
 sfx.add(dun() * 1.1, vo('F7')['t1'] + 0.15, db(-11)); sfx.add(slide_down(0.7) * 0.6, vo('F7')['t1'] + 0.3, db(-22))
 
-# music: chill gaming loop → silence → tense loop → victory → nothing
+# music
 mel1 = [659, 0, 784, 0, 880, 0, 784, 659, 587, 0, 659, 0, 523, 0, 0, 0]
-drums(128, HOOK, SIL - 0.05, gain=0.7); bassline(128, HOOK, SIL - 0.05, [82.4, 82.4, 98, 110, 82.4, 82.4, 123.5, 110], 0.8, 'saw'); lead(128, HOOK, SIL - 0.05, mel1, 0.75)
-drums(150, JOIN + 0.2, TYPE - 0.05, gain=0.9); bassline(150, JOIN + 0.2, TYPE - 0.05, [73.4, 77.8, 73.4, 69.3, 73.4, 77.8, 87.3, 82.4], 0.9, 'saw')
-lead(150, JOIN + 0.2, TYPE - 0.05, [587, 0, 622, 0, 587, 0, 554, 0, 587, 622, 698, 0, 659, 0, 622, 0], 0.7)
-drums(128, BANNED + 1.3, DOOR - 0.1, gain=0.6); bassline(128, BANNED + 1.3, DOOR - 0.1, [130.8, 130.8, 164.8, 196], 0.7, 'saw'); lead(128, BANNED + 1.3, DOOR - 0.1, [1047, 0, 988, 0, 784, 0, 880, 0], 0.6)
+drums(132, HOOK, SIL - 0.05, gain=0.75); bassline(132, HOOK, SIL - 0.05, [82.4, 82.4, 98, 110, 82.4, 82.4, 123.5, 110], 0.8, 'saw'); lead(132, HOOK, SIL - 0.05, mel1, 0.75)
+drums(156, JOIN + 0.3, TYPE - 0.05, gain=0.95); bassline(156, JOIN + 0.3, TYPE - 0.05, [73.4, 77.8, 73.4, 69.3, 73.4, 77.8, 87.3, 82.4], 0.9, 'saw')
+lead(156, JOIN + 0.3, TYPE - 0.05, [587, 0, 622, 0, 587, 0, 554, 0, 587, 622, 698, 0, 659, 0, 622, 0], 0.7)
+drums(132, BANNED + 1.3, DOOR - 0.05, gain=0.65); bassline(132, BANNED + 1.3, DOOR - 0.05, [130.8, 130.8, 164.8, 196], 0.7, 'saw'); lead(132, BANNED + 1.3, DOOR - 0.05, [1047, 0, 988, 0, 784, 0, 880, 0], 0.6)
 
 V_, S_, Mu = voice.st(), sfx.st(), music.st()
 venv = np.abs(V_).mean(0); venv = signal.sosfilt(signal.butter(2, 6, fs=SR, output='sos'), venv)
